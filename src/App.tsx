@@ -1,56 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
+import Counter from './features/counter/Counter';
+import { useSelector } from 'react-redux';
+import { RootState } from './store';
+import Login from './features/auth/Login';
+import { Link, Route, Routes } from 'react-router-dom';
 
 function App() {
+  const value = useSelector((state: RootState) => state.counter.value);
+  const user = useSelector((state: RootState) => state.auth.login);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <h1>Ваш счет: {value}</h1>
+      <Counter />
+      {user && <h2>Hello {user}</h2>}
+      <nav>
+        <Link to="/login">Login</Link>
+        <Link to="/counter">Counter</Link>
+      </nav>
+      <Login />
+      <Routes>
+        <Route path="/login" element={<Login/>} />
+        <Route path="/counter" element={<Counter/>} />
+      </Routes>
     </div>
   );
 }

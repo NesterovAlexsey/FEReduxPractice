@@ -20,5 +20,5 @@ export default function Login(): JSX.Element {
             />
             <button type="submit">Ok</button>
         </form>
-    )
-}
+    );
+};
